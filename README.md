@@ -55,6 +55,31 @@ The app features local mock authentication for evaluation without third-party ne
 
 ## 3. Visual Showcase & Key Feature Highlights
 
+### 🎥 End-to-End Application Video Walkthrough
+
+Watch the full interactive mobile demo in high definition:
+
+<p align="center">
+  <video src="assets/ecom_demo.mp4" controls="controls" width="340" poster="assets/list_page.png">
+    Your browser does not support the video tag.
+  </video>
+</p>
+
+<p align="center">
+  <a href="assets/ecom_demo.mp4">
+    <img src="assets/list_page.png" width="340" alt="Click to Watch Ecom Demo Video (MP4)" />
+  </a>
+  <br />
+  <sub><em>▶ Click image or download link below to play video</em></sub>
+</p>
+
+| Video Format | Direct Repository Link | Size | Compatibility |
+|:---|:---|:---|:---|
+| **MP4 (H.264 / AAC)** | [▶ **Watch / Download `assets/ecom_demo.mp4`**](assets/ecom_demo.mp4) | **4.7 MB** | Universal (iOS, Android, macOS, Windows, Chrome, Safari) |
+| **WebM** | [▶ **Watch / Download `assets/ecom_demo.webm`**](assets/ecom_demo.webm) | **5.0 MB** | Web-native players & Chromium |
+
+---
+
 ### Editorial Onboarding Experience
 | Hero Photography & Skip Chip | Fabric Specification Chips | Express Dispatch & Start Shopping |
 |:---:|:---:|:---:|
@@ -245,6 +270,9 @@ fvm flutter test
 
 ---
 
-## 7. Additional Documentation
+## 7. Additional Documentation & Media
 
-For an in-depth visual case study with emulator screenshots, evolution diagrams, and bug fixes, refer to [WALKTHROUGH.md](file:///Users/vicky/Desktop/ecom/WALKTHROUGH.md).
+- [WALKTHROUGH.md](file:///Users/vicky/Desktop/ecom/WALKTHROUGH.md) — Comprehensive architectural deep-dive, widget inventory, bug resolution logs, and visual diagrams.
+- [`assets/ecom_demo.mp4`](assets/ecom_demo.mp4) — High-definition end-to-end user journey video walkthrough (4.7 MB, MP4 H.264/AAC).
+- [`assets/ecom_demo.webm`](assets/ecom_demo.webm) — WebM version (5.0 MB).
+

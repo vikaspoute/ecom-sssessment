@@ -43,6 +43,39 @@ graph TD
 
 ## 2. Visual Walkthrough & Feature Showcase
 
+### 🎥 End-to-End Application Video Walkthrough
+
+Watch the complete user journey in high definition (Onboarding → Catalog → In-Card Stepper → Bag Management → Checkout Preview → Decoupled Authentication):
+
+<p align="center">
+  <video src="assets/ecom_demo.mp4" controls="controls" width="340" poster="assets/list_page.png">
+    Your browser does not support the video tag.
+  </video>
+</p>
+
+<p align="center">
+  <a href="assets/ecom_demo.mp4">
+    <img src="assets/list_page.png" width="340" alt="Click to Watch Ecom Demo Video (MP4)" />
+  </a>
+  <br />
+  <sub><em>▶ Click image or download link below to play full screen</em></sub>
+</p>
+
+| Format | Direct Playback / Download Link | File Size | Description |
+|:---|:---|:---|:---|
+| **MP4 (H.264 / AAC)** | [▶ **Watch / Download `assets/ecom_demo.mp4`**](assets/ecom_demo.mp4) | **4.7 MB** | Universal playback across iOS, Android, Safari, Chrome, QuickTime |
+| **WebM** | [▶ **Watch / Download `assets/ecom_demo.webm`**](assets/ecom_demo.webm) | **5.0 MB** | Lightweight web-optimized video format |
+
+> [!TIP]
+> **Video Timeline Highlights:**
+> - `0:00 - 0:15` — **Editorial Onboarding Experience**: Carousel navigation, full-bleed imagery, floating Skip chip, fabric spec chips.
+> - `0:15 - 0:35` — **Product Catalog Exploration**: Dynamic search, category pill filter tabs, zero layout-shift responsive grid.
+> - `0:35 - 0:50` — **In-Card Circular Stepper**: One-tap bag addition, circular `-` / `+` quantity manipulation, live AppBar badge syncing.
+> - `0:50 - 1:15` — **Shopping Bag & Checkout**: Real-time minor-unit totals, swipe-to-dismiss items, empty bag state, and checkout preview sheet.
+> - `1:15 - 1:30` — **Decoupled Form Validation**: Per-field error triggering, pristine field isolation, and mock authentication.
+
+---
+
 ### A. Full-Bleed Luxury Onboarding Experience
 
 The onboarding flow introduces customers to the brand ethos without friction or gating.
@@ -226,3 +259,27 @@ Each screen is decomposed into focused, single-responsibility public supporting 
   - `lib/shared/widgets/app_button_content.dart` — Accessible button internals and progress indicator.
   - `lib/shared/widgets/app_shimmer_box.dart` — Composable skeleton box participating in unified sweep.
   - `lib/shared/widgets/image_placeholder.dart` & `image_fallback.dart` — Network image loading states.
+
+---
+
+## 5. Media & Video Assets Reference
+
+All visual media assets are checked directly into the repository for seamless offline inspection, GitHub browsing, and PR evaluation:
+
+| Asset Path | Type | Resolution / Spec | Purpose |
+|---|---|---|---|
+| [`assets/ecom_demo.mp4`](assets/ecom_demo.mp4) | Video (MP4 / H.264) | 720 × 1560 • 4.7 MB | **Universal end-to-end interactive demo** |
+| [`assets/ecom_demo.webm`](assets/ecom_demo.webm) | Video (WebM) | 720 × 1560 • 5.0 MB | Compressed web-format demo |
+| [`assets/onbording1.png`](assets/onbording1.png) | Image (PNG) | 1080 × 2340 | Onboarding Screen 1 hero & spec chips |
+| [`assets/onbording2.png`](assets/onbording2.png) | Image (PNG) | 1080 × 2340 | Onboarding Screen 2 wardrobe curation |
+| [`assets/onbording3.png`](assets/onbording3.png) | Image (PNG) | 1080 × 2340 | Onboarding Screen 3 express dispatch |
+| [`assets/list_page.png`](assets/list_page.png) | Image (PNG) | 1080 × 2340 | Product catalog screen with search & filter |
+| [`assets/quantity_validatin.png`](assets/quantity_validatin.png) | Image (PNG) | 1080 × 2340 | In-card circular quantity stepper |
+| [`assets/cart_list_page.png`](assets/cart_list_page.png) | Image (PNG) | 1080 × 2340 | Shopping bag screen with order summary |
+| [`assets/cart_product_remove1.png`](assets/cart_product_remove1.png) | Image (PNG) | 1080 × 2340 | Cart item swipe-to-dismiss dialog |
+| [`assets/empty_cart.png`](assets/empty_cart.png) | Image (PNG) | 1080 × 2340 | Empty shopping bag state |
+| [`assets/checkout_button.png`](assets/checkout_button.png) | Image (PNG) | 1080 × 2340 | Checkout preview bottom sheet modal |
+| [`assets/login.png`](assets/login.png) | Image (PNG) | 1080 × 2340 | Pristine authentication form |
+| [`assets/email_valid.png`](assets/email_valid.png) | Image (PNG) | 1080 × 2340 | Decoupled email validation error state |
+| [`assets/password_valid.png`](assets/password_valid.png) | Image (PNG) | 1080 × 2340 | Password validation error state |
+
