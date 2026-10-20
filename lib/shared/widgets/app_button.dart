@@ -1,9 +1,8 @@
 import 'package:ecom/core/extensions/context_extensions.dart';
-import 'package:ecom/core/extensions/number_extensions.dart';
 import 'package:ecom/core/theme/app_sizes.dart';
 import 'package:ecom/core/theme/app_spacing.dart';
 import 'package:ecom/core/theme/app_typography.dart';
-import 'package:ecom/shared/widgets/app_loader.dart';
+import 'package:ecom/shared/widgets/app_button_content.dart';
 import 'package:flutter/material.dart';
 
 enum AppButtonVariant { primary, secondary, outlined, text }
@@ -83,7 +82,7 @@ class AppButton extends StatelessWidget {
       ),
     );
 
-    final child = _ButtonContent(
+    final child = AppButtonContent(
       label: label,
       leading: leading,
       trailing: trailing,
@@ -129,63 +128,5 @@ class AppButton extends StatelessWidget {
     }
 
     return SizedBox(width: double.infinity, child: button);
-  }
-}
-
-class _ButtonContent extends StatelessWidget {
-  const _ButtonContent({
-    required this.label,
-    required this.leading,
-    required this.trailing,
-    required this.isLoading,
-    required this.iconSize,
-    required this.expand,
-  });
-
-  final String label;
-  final Widget? leading;
-  final Widget? trailing;
-  final bool isLoading;
-  final double iconSize;
-  final bool expand;
-
-  @override
-  Widget build(BuildContext context) {
-    if (isLoading) {
-      return Semantics(
-        label: label,
-        liveRegion: true,
-        child: const AppLoader(size: AppLoaderSize.small, label: 'Loading'),
-      );
-    }
-
-    return Row(
-      mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        if (leading != null) ...[
-          IconTheme(
-            data: IconThemeData(size: iconSize),
-            child: leading!,
-          ),
-          AppSpacing.buttonGap.horizontalGap,
-        ],
-        Flexible(
-          child: Text(
-            label,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-          ),
-        ),
-        if (trailing != null) ...[
-          AppSpacing.buttonGap.horizontalGap,
-          IconTheme(
-            data: IconThemeData(size: iconSize),
-            child: trailing!,
-          ),
-        ],
-      ],
-    );
   }
 }

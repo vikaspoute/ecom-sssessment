@@ -1,9 +1,14 @@
 import 'package:ecom/core/extensions/context_extensions.dart';
-import 'package:ecom/core/theme/app_radii.dart';
+import 'package:ecom/shared/widgets/app_shimmer_box.dart';
+import 'package:ecom/shared/widgets/inherited_shimmer.dart';
 import 'package:flutter/material.dart';
+
+export 'package:ecom/shared/widgets/app_shimmer_box.dart';
+export 'package:ecom/shared/widgets/inherited_shimmer.dart';
 
 /// Sweeping light shimmer animation used across skeleton screens and image loading.
 class AppShimmer extends StatefulWidget {
+  /// Creates an [AppShimmer] gradient container.
   const AppShimmer({
     super.key,
     required this.child,
@@ -11,8 +16,13 @@ class AppShimmer extends StatefulWidget {
     this.highlightColor,
   });
 
+  /// The child widget tree containing skeleton placeholder elements.
   final Widget child;
+
+  /// Optional base tint color for the shimmer gradient.
   final Color? baseColor;
+
+  /// Optional highlight tint color for the moving shimmer beam.
   final Color? highlightColor;
 
   @override
@@ -55,7 +65,7 @@ class _AppShimmerState extends State<AppShimmer>
             : colorScheme.surface);
 
     if (_isTest) {
-      return _InheritedShimmer(
+      return InheritedShimmer(
         isShimmering: false,
         child: ShaderMask(
           blendMode: BlendMode.srcATop,
@@ -70,7 +80,7 @@ class _AppShimmerState extends State<AppShimmer>
       );
     }
 
-    return _InheritedShimmer(
+    return InheritedShimmer(
       isShimmering: true,
       child: AnimatedBuilder(
         animation: _controller,
@@ -92,54 +102,5 @@ class _AppShimmerState extends State<AppShimmer>
         child: widget.child,
       ),
     );
-  }
-}
-
-class _InheritedShimmer extends InheritedWidget {
-  const _InheritedShimmer({required this.isShimmering, required super.child});
-
-  final bool isShimmering;
-
-  @override
-  bool updateShouldNotify(_InheritedShimmer oldWidget) =>
-      isShimmering != oldWidget.isShimmering;
-}
-
-/// Standalone skeleton element box. If placed inside an [AppShimmer], it participates
-/// in the unified gradient sweep. If used standalone, it wraps itself in [AppShimmer].
-class AppShimmerBox extends StatelessWidget {
-  const AppShimmerBox({
-    super.key,
-    this.width,
-    this.height,
-    this.borderRadius = AppRadii.borderMd,
-    this.shape = BoxShape.rectangle,
-  });
-
-  final double? width;
-  final double? height;
-  final BorderRadiusGeometry borderRadius;
-  final BoxShape shape;
-
-  @override
-  Widget build(BuildContext context) {
-    final hasAncestor =
-        context.dependOnInheritedWidgetOfExactType<_InheritedShimmer>() != null;
-
-    final box = Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: shape == BoxShape.circle ? null : borderRadius,
-        shape: shape,
-      ),
-    );
-
-    if (hasAncestor) {
-      return box;
-    }
-
-    return AppShimmer(child: box);
   }
 }

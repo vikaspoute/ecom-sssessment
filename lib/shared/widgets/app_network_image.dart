@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecom/core/extensions/context_extensions.dart';
 import 'package:ecom/core/theme/app_radii.dart';
-import 'package:ecom/core/theme/app_sizes.dart';
-import 'package:ecom/shared/widgets/app_shimmer.dart';
+import 'package:ecom/shared/widgets/image_fallback.dart';
+import 'package:ecom/shared/widgets/image_placeholder.dart';
 import 'package:flutter/material.dart';
 
+/// Reusable network image component wrapped with cached loading, shimmer placeholder,
+/// and graceful fallback states.
 class AppNetworkImage extends StatelessWidget {
+  /// Creates an [AppNetworkImage].
   const AppNetworkImage({
     super.key,
     required this.imageUrl,
@@ -16,11 +18,22 @@ class AppNetworkImage extends StatelessWidget {
     this.semanticLabel,
   });
 
+  /// The remote image URL.
   final String? imageUrl;
+
+  /// Optional fixed width for the image.
   final double? width;
+
+  /// Optional fixed height for the image.
   final double? height;
+
+  /// How the image should be inscribed into the box.
   final BoxFit fit;
+
+  /// Corner radius for clipping the image.
   final BorderRadius borderRadius;
+
+  /// Accessibility label describing image content.
   final String? semanticLabel;
 
   bool get _hasValidUrl {
@@ -50,44 +63,13 @@ class AppNetworkImage extends StatelessWidget {
                   width: width,
                   height: height,
                   fit: fit,
-                  placeholder: (context, url) => const _ImagePlaceholder(),
-                  errorWidget: (context, url, error) => const _ImageFallback(),
+                  placeholder: (context, url) => const ImagePlaceholder(),
+                  errorWidget: (context, url, error) => const ImageFallback(),
                 )
-              : const _ImageFallback(),
+              : const ImageFallback(),
         ),
       ),
     );
   }
 }
 
-class _ImagePlaceholder extends StatelessWidget {
-  const _ImagePlaceholder();
-
-  @override
-  Widget build(BuildContext context) {
-    return const AppShimmerBox(
-      width: double.infinity,
-      height: double.infinity,
-      borderRadius: BorderRadius.zero,
-    );
-  }
-}
-
-class _ImageFallback extends StatelessWidget {
-  const _ImageFallback();
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = context.colorScheme;
-    return ColoredBox(
-      color: colorScheme.surfaceContainerHighest,
-      child: Center(
-        child: Icon(
-          Icons.image_not_supported_outlined,
-          size: AppSizes.iconLg,
-          color: colorScheme.onSurfaceVariant,
-        ),
-      ),
-    );
-  }
-}
