@@ -3,7 +3,9 @@ import 'package:ecom/core/utils/validators.dart';
 import 'package:ecom/shared/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 
+/// Reusable password input field featuring visibility toggle and validation.
 class PasswordField extends StatefulWidget {
+  /// Creates a [PasswordField].
   const PasswordField({
     super.key,
     this.controller,
@@ -16,13 +18,28 @@ class PasswordField extends StatefulWidget {
     this.autovalidateMode,
   });
 
+  /// The text editing controller for the password string.
   final TextEditingController? controller;
+
+  /// Focus node controlling focus state.
   final FocusNode? focusNode;
+
+  /// Callback when password input changes.
   final ValueChanged<String>? onChanged;
+
+  /// Callback when user submits field from software keyboard.
   final ValueChanged<String>? onFieldSubmitted;
+
+  /// Whether the field is enabled for input.
   final bool enabled;
+
+  /// Action key type on soft keyboard.
   final TextInputAction textInputAction;
+
+  /// Validation function for the password value.
   final FormFieldValidator<String>? validator;
+
+  /// Form validation triggering mode.
   final AutovalidateMode? autovalidateMode;
 
   @override

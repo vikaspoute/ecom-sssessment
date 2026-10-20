@@ -1,4 +1,3 @@
-import 'package:ecom/core/constants/app_constants.dart';
 import 'package:ecom/core/extensions/context_extensions.dart';
 import 'package:ecom/core/extensions/number_extensions.dart';
 import 'package:ecom/core/router/app_routes.dart';
@@ -8,7 +7,8 @@ import 'package:ecom/core/theme/app_typography.dart';
 import 'package:ecom/core/utils/validators.dart';
 import 'package:ecom/features/auth/cubit/auth_cubit.dart';
 import 'package:ecom/features/auth/cubit/auth_state.dart';
-import 'package:ecom/features/auth/data/auth_repository.dart';
+import 'package:ecom/features/auth/widgets/login_demo_footer.dart';
+import 'package:ecom/features/auth/widgets/login_header.dart';
 import 'package:ecom/features/auth/widgets/password_field.dart';
 import 'package:ecom/shared/widgets/app_button.dart';
 import 'package:ecom/shared/widgets/app_text_field.dart';
@@ -16,7 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+/// Authentication screen supporting decoupled per-field validation and mock demo sign-in.
 class LoginScreen extends StatefulWidget {
+  /// Creates a [LoginScreen].
   const LoginScreen({super.key});
 
   @override
@@ -105,26 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          AppSpacing.huge.verticalGap,
-                          Text(
-                            AppConstants.appName,
-                            style: AppTypography.labelLarge.copyWith(
-                              color: colorScheme.secondary,
-                              letterSpacing: 2,
-                            ),
-                          ),
-                          AppSpacing.md.verticalGap,
-                          Text(
-                            'Welcome back',
-                            style: AppTypography.headlineLarge,
-                          ),
-                          AppSpacing.sm.verticalGap,
-                          Text(
-                            'Sign in to continue shopping the collection.',
-                            style: AppTypography.bodyMedium.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                            ),
-                          ),
+                          const LoginHeader(),
                           AppSpacing.sectionGap.verticalGap,
                           AppTextField(
                             controller: _emailController,
@@ -175,37 +158,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             expand: true,
                             size: AppButtonSize.large,
                             isLoading: isLoading,
-                            onPressed: _isFormValid && !isLoading
-                                ? _submit
-                                : null,
+                            onPressed:
+                                _isFormValid && !isLoading ? _submit : null,
                           ),
-                          AppSpacing.lg.verticalGap,
-                          Text(
-                            'Demo: ${AuthRepository.demoEmail} / '
-                            '${AuthRepository.demoPassword}',
-                            style: AppTypography.caption,
-                            textAlign: TextAlign.center,
-                          ),
-                          AppSpacing.sm.verticalGap,
-                          Center(
-                            child: TextButton.icon(
-                              key: const ValueKey('explore_onboarding_button'),
-                              icon: Icon(
-                                Icons.auto_awesome_outlined,
-                                size: AppSizes.iconSm,
-                                color: colorScheme.secondary,
-                              ),
-                              label: Text(
-                                'Explore Brand Experience',
-                                style: AppTypography.labelMedium.copyWith(
-                                  color: colorScheme.secondary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              onPressed: () =>
-                                  context.push(AppRoutes.onboarding),
-                            ),
-                          ),
+                          const LoginDemoFooter(),
                         ],
                       ),
                     ),
