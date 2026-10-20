@@ -5,6 +5,7 @@ import 'package:ecom/core/theme/app_sizes.dart';
 import 'package:ecom/core/theme/app_spacing.dart';
 import 'package:ecom/core/theme/app_typography.dart';
 import 'package:ecom/features/cart/models/cart_item.dart';
+import 'package:ecom/features/cart/widgets/cart_quantity_stepper.dart';
 import 'package:ecom/shared/widgets/app_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -169,98 +170,12 @@ class CartItemCard extends StatelessWidget {
                           ),
                         ),
                         AppSpacing.sm.horizontalGap,
-                        // Refined circular quantity stepper in cohesive pill track
-                        Container(
-                          decoration: BoxDecoration(
-                            color: colorScheme.surfaceContainerHighest,
-                            borderRadius: AppRadii.borderPill,
-                            border: Border.all(
-                              color: colorScheme.outline,
-                              width: AppSizes.borderWidthThin,
-                            ),
-                          ),
-                          padding: const EdgeInsets.all(2),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                key: ValueKey('cart_decrement_${product.id}'),
-                                tooltip:
-                                    'Decrease quantity for ${product.name}',
-                                style: IconButton.styleFrom(
-                                  backgroundColor: colorScheme.surface,
-                                  foregroundColor: colorScheme.primary,
-                                  elevation: 0.5,
-                                  shadowColor: Colors.black.withValues(
-                                    alpha: 0.08,
-                                  ),
-                                  shape: const CircleBorder(),
-                                  minimumSize: const Size(
-                                    AppSizes.stepperButtonSize,
-                                    AppSizes.stepperButtonSize,
-                                  ),
-                                  maximumSize: const Size(
-                                    AppSizes.stepperButtonSize,
-                                    AppSizes.stepperButtonSize,
-                                  ),
-                                  padding: EdgeInsets.zero,
-                                ),
-                                icon: Icon(
-                                  item.quantity == 1
-                                      ? Icons.delete_outline_rounded
-                                      : Icons.remove_rounded,
-                                  size: AppSizes.iconSm,
-                                  color: item.quantity == 1
-                                      ? colorScheme.error
-                                      : colorScheme.primary,
-                                ),
-                                onPressed: onDecrement,
-                              ),
-                              Container(
-                                constraints: const BoxConstraints(minWidth: 32),
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.xs,
-                                ),
-                                child: Text(
-                                  '${item.quantity}',
-                                  key: ValueKey('cart_qty_${product.id}'),
-                                  style: AppTypography.labelLarge.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: colorScheme.onSurface,
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                key: ValueKey('cart_increment_${product.id}'),
-                                tooltip:
-                                    'Increase quantity for ${product.name}',
-                                style: IconButton.styleFrom(
-                                  backgroundColor: colorScheme.primary,
-                                  foregroundColor: colorScheme.onPrimary,
-                                  elevation: 1,
-                                  shadowColor: colorScheme.primary.withValues(
-                                    alpha: 0.25,
-                                  ),
-                                  shape: const CircleBorder(),
-                                  minimumSize: const Size(
-                                    AppSizes.stepperButtonSize,
-                                    AppSizes.stepperButtonSize,
-                                  ),
-                                  maximumSize: const Size(
-                                    AppSizes.stepperButtonSize,
-                                    AppSizes.stepperButtonSize,
-                                  ),
-                                  padding: EdgeInsets.zero,
-                                ),
-                                icon: const Icon(
-                                  Icons.add_rounded,
-                                  size: AppSizes.iconSm,
-                                ),
-                                onPressed: onIncrement,
-                              ),
-                            ],
-                          ),
+                        CartQuantityStepper(
+                          productId: product.id,
+                          productName: product.name,
+                          quantity: item.quantity,
+                          onIncrement: onIncrement,
+                          onDecrement: onDecrement,
                         ),
                       ],
                     ),
