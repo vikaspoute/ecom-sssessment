@@ -10,9 +10,10 @@ import 'package:ecom/features/cart/cubit/cart_state.dart';
 import 'package:ecom/features/products/data/product_repository.dart';
 import 'package:ecom/features/products/models/product.dart';
 import 'package:ecom/features/products/widgets/product_card.dart';
-import 'package:ecom/features/products/widgets/product_card_skeleton.dart';
+import 'package:ecom/features/products/widgets/product_catalog_header.dart';
+import 'package:ecom/features/products/widgets/product_grid_skeleton.dart';
+import 'package:ecom/features/products/widgets/product_search_filter_bar.dart';
 import 'package:ecom/shared/widgets/app_error_view.dart';
-import 'package:ecom/shared/widgets/app_text_field.dart';
 import 'package:ecom/shared/widgets/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,13 +22,17 @@ import 'package:go_router/go_router.dart';
 /// Screen displaying the curated fashion catalog with dynamic top search,
 /// category filters, live cart integration, and in-card quantity management.
 class ProductListingScreen extends StatefulWidget {
+  /// Creates a [ProductListingScreen].
   const ProductListingScreen({
     super.key,
     this.productRepository,
     this.cartCubit,
   });
 
+  /// Optional product repository for testing dependency injection.
   final ProductRepository? productRepository;
+
+  /// Optional cart cubit for testing dependency injection.
   final CartCubit? cartCubit;
 
   @override
@@ -35,33 +40,6 @@ class ProductListingScreen extends StatefulWidget {
 }
 
 class _ProductListingScreenState extends State<ProductListingScreen> {
-  @override
-  Widget build(BuildContext context) {
-    final view = _ProductListingView(
-      productRepository: widget.productRepository,
-    );
-
-    if (widget.cartCubit != null) {
-      return BlocProvider<CartCubit>.value(
-        value: widget.cartCubit!,
-        child: view,
-      );
-    }
-
-    return view;
-  }
-}
-
-class _ProductListingView extends StatefulWidget {
-  const _ProductListingView({this.productRepository});
-
-  final ProductRepository? productRepository;
-
-  @override
-  State<_ProductListingView> createState() => _ProductListingViewState();
-}
-
-class _ProductListingViewState extends State<_ProductListingView> {
   final TextEditingController _searchController = TextEditingController();
 
   List<Product> _allProducts = const [];
@@ -163,6 +141,19 @@ class _ProductListingViewState extends State<_ProductListingView> {
 
   @override
   Widget build(BuildContext context) {
+    final scaffold = _buildScaffold(context);
+
+    if (widget.cartCubit != null) {
+      return BlocProvider<CartCubit>.value(
+        value: widget.cartCubit!,
+        child: scaffold,
+      );
+    }
+
+    return scaffold;
+  }
+
+  Widget _buildScaffold(BuildContext context) {
     final colorScheme = context.colorScheme;
 
     return Scaffold(
@@ -259,8 +250,7 @@ class _ProductListingViewState extends State<_ProductListingView> {
         final columnWidth =
             (availableWidth - horizontalPadding - totalGaps) / crossAxisCount;
 
-        // Modern square image ratio (1.0) with tightly calibrated content height (144px)
-        // eliminates awkward whitespace while keeping price and button aligned across rows.
+        // Modern square image ratio (1.0) with calibrated content height
         const imageAspectRatio = 1.0;
         const contentHeight = AppSizes.cardContentHeight;
         final cardHeight = (columnWidth / imageAspectRatio) + contentHeight;
@@ -272,137 +262,27 @@ class _ProductListingViewState extends State<_ProductListingView> {
 
             return Column(
               children: [
-                // Top dynamic search & filter bar pinned above the product catalog
-                Container(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  padding: const EdgeInsets.fromLTRB(
-                    AppSpacing.screenPadding,
-                    AppSpacing.xs,
-                    AppSpacing.screenPadding,
-                    AppSpacing.sm,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AppTextField(
-                        key: const ValueKey('search_field'),
-                        controller: _searchController,
-                        hintText: 'Search products by name...',
-                        prefixIcon: const Icon(
-                          Icons.search,
-                          size: AppSizes.iconMd,
-                        ),
-                        suffixIcon: _searchQuery.isNotEmpty
-                            ? IconButton(
-                                key: const ValueKey('clear_search_button'),
-                                icon: const Icon(
-                                  Icons.clear,
-                                  size: AppSizes.iconSm,
-                                ),
-                                onPressed: _clearSearch,
-                              )
-                            : null,
-                        onChanged: _onSearchChanged,
-                      ),
-                      AppSpacing.sm.verticalGap,
-                      SizedBox(
-                        height: AppSizes.categoryFilterHeight,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: ProductCategories.categories.length,
-                          separatorBuilder: (context, index) =>
-                              AppSpacing.sm.horizontalGap,
-                          itemBuilder: (context, index) {
-                            final category =
-                                ProductCategories.categories[index];
-                            final isSelected = _selectedCategory == category;
-
-                            return ChoiceChip(
-                              key: ValueKey('category_chip_$category'),
-                              label: Text(category),
-                              selected: isSelected,
-                              showCheckmark: false,
-                              selectedColor: colorScheme.primary,
-                              backgroundColor: colorScheme.surface,
-                              labelStyle: AppTypography.labelMedium.copyWith(
-                                color: isSelected
-                                    ? colorScheme.onPrimary
-                                    : colorScheme.onSurface,
-                              ),
-                              side: BorderSide(
-                                color: isSelected
-                                    ? colorScheme.primary
-                                    : colorScheme.outline,
-                                width: AppSizes.borderWidthThin,
-                              ),
-                              shape: const StadiumBorder(),
-                              onSelected: (_) => _onCategorySelected(category),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                ProductSearchFilterBar(
+                  searchController: _searchController,
+                  searchQuery: _searchQuery,
+                  onSearchChanged: _onSearchChanged,
+                  onClearSearch: _clearSearch,
+                  selectedCategory: _selectedCategory,
+                  onCategorySelected: _onCategorySelected,
                 ),
                 Divider(
                   height: AppSizes.borderWidthThin,
                   thickness: AppSizes.borderWidthThin,
                   color: colorScheme.outline,
                 ),
-                // Scrollable product catalog area
                 Expanded(
                   child: CustomScrollView(
                     slivers: [
                       SliverToBoxAdapter(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            AppSpacing.screenPadding,
-                            AppSpacing.md,
-                            AppSpacing.screenPadding,
-                            AppSpacing.xs,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'SPRING / SUMMER 2026',
-                                style: AppTypography.caption.copyWith(
-                                  letterSpacing: 1.5,
-                                  fontWeight: FontWeight.w600,
-                                  color: colorScheme.secondary,
-                                ),
-                              ),
-                              AppSpacing.xs.verticalGap,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.baseline,
-                                textBaseline: TextBaseline.alphabetic,
-                                children: [
-                                  Text(
-                                    _selectedCategory == ProductCategories.all
-                                        ? 'Curated Collection'
-                                        : _selectedCategory,
-                                    style: AppTypography.headlineMedium,
-                                  ),
-                                  Text(
-                                    '${filtered.length} ${filtered.length == 1 ? 'item' : 'items'}',
-                                    style: AppTypography.labelMedium.copyWith(
-                                      color: colorScheme.onSurfaceVariant,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              AppSpacing.xs.verticalGap,
-                              Text(
-                                _searchQuery.isNotEmpty
-                                    ? 'Matching "$_searchQuery"'
-                                    : 'Timeless essentials crafted with premium natural fabrics.',
-                                style: AppTypography.bodySmall,
-                              ),
-                            ],
-                          ),
+                        child: ProductCatalogHeader(
+                          selectedCategory: _selectedCategory,
+                          searchQuery: _searchQuery,
+                          itemCount: filtered.length,
                         ),
                       ),
                       if (filtered.isEmpty)

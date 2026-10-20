@@ -5,6 +5,7 @@ import 'package:ecom/core/theme/app_sizes.dart';
 import 'package:ecom/core/theme/app_spacing.dart';
 import 'package:ecom/core/theme/app_typography.dart';
 import 'package:ecom/features/products/models/product.dart';
+import 'package:ecom/features/products/widgets/product_quantity_stepper.dart';
 import 'package:ecom/shared/widgets/app_button.dart';
 import 'package:ecom/shared/widgets/app_network_image.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 /// Reusable fashion product card displaying imagery, metadata, price, and
 /// dynamic Add to Cart / quantity stepper (+ / -).
 class ProductCard extends StatelessWidget {
+  /// Creates a [ProductCard] representing an item in the fashion catalog.
   const ProductCard({
     super.key,
     required this.product,
@@ -22,11 +24,22 @@ class ProductCard extends StatelessWidget {
     this.isLoading = false,
   });
 
+  /// The product data entity.
   final Product product;
+
+  /// Callback when user taps initial 'Add to Cart' button.
   final VoidCallback? onAddToCart;
+
+  /// Callback when user increments quantity in stepper.
   final VoidCallback? onIncrement;
+
+  /// Callback when user decrements quantity in stepper.
   final VoidCallback? onDecrement;
+
+  /// Current quantity of this item present in the user's shopping bag.
   final int cartQuantity;
+
+  /// Whether the card or action is in a pending loading state.
   final bool isLoading;
 
   @override
@@ -155,7 +168,7 @@ class ProductCard extends StatelessWidget {
                               ),
                               onPressed: onAddToCart,
                             )
-                          : _QuantityStepper(
+                          : ProductQuantityStepper(
                               key: ValueKey('stepper_${product.id}'),
                               productId: product.id,
                               productName: product.name,
@@ -170,112 +183,6 @@ class ProductCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _QuantityStepper extends StatelessWidget {
-  const _QuantityStepper({
-    super.key,
-    required this.productId,
-    required this.productName,
-    required this.quantity,
-    this.onIncrement,
-    this.onDecrement,
-  });
-
-  final String productId;
-  final String productName;
-  final int quantity;
-  final VoidCallback? onIncrement;
-  final VoidCallback? onDecrement;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = context.colorScheme;
-
-    return Container(
-      height: AppSizes.buttonHeightSm,
-      decoration: BoxDecoration(
-        color: colorScheme.primary,
-        borderRadius: AppRadii.borderPill,
-        boxShadow: [
-          BoxShadow(
-            color: colorScheme.primary.withValues(alpha: 0.18),
-            offset: const Offset(0, 2),
-            blurRadius: 6,
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Material(
-            color: Colors.white.withValues(alpha: 0.16),
-            shape: const CircleBorder(),
-            clipBehavior: Clip.antiAlias,
-            child: InkWell(
-              key: ValueKey('decrement_$productId'),
-              onTap: onDecrement,
-              child: SizedBox(
-                width: 34,
-                height: 34,
-                child: Icon(
-                  quantity == 1
-                      ? Icons.delete_outline_rounded
-                      : Icons.remove_rounded,
-                  size: AppSizes.iconSm,
-                  color: colorScheme.onPrimary,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  '$quantity',
-                  key: ValueKey('quantity_$productId'),
-                  style: AppTypography.titleSmall.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: colorScheme.onPrimary,
-                  ),
-                ),
-                AppSpacing.xs.horizontalGap,
-                Text(
-                  'in bag',
-                  style: AppTypography.labelSmall.copyWith(
-                    color: colorScheme.onPrimary.withValues(alpha: 0.8),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 11,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Material(
-            color: Colors.white.withValues(alpha: 0.24),
-            shape: const CircleBorder(),
-            clipBehavior: Clip.antiAlias,
-            child: InkWell(
-              key: ValueKey('increment_$productId'),
-              onTap: onIncrement,
-              child: SizedBox(
-                width: 34,
-                height: 34,
-                child: Icon(
-                  Icons.add_rounded,
-                  size: AppSizes.iconSm,
-                  color: colorScheme.onPrimary,
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
