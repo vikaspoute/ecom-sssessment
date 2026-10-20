@@ -53,7 +53,12 @@ The app features local mock authentication for evaluation without third-party ne
 
 ---
 
-## 3. Key Feature Highlights
+## 3. Visual Showcase & Key Feature Highlights
+
+### Editorial Onboarding Experience
+| Hero Photography & Skip Chip | Fabric Specification Chips | Express Dispatch & Start Shopping |
+|:---:|:---:|:---:|
+| <img src="assets/onbording1.png" width="260" alt="Onboarding Hero" /> | <img src="assets/onbording2.png" width="260" alt="Fabric Specification Chips" /> | <img src="assets/onbording3.png" width="260" alt="Express Dispatch & Start Shopping" /> |
 
 - **Editorial Luxury Onboarding**:
   - Automatically launches on app startup without gating or manual routing.
@@ -61,9 +66,12 @@ The app features local mock authentication for evaluation without third-party ne
   - Floating glassmorphic **Skip chip** overlay at the top right.
   - Lower product-detail-style editorial section displaying collection tags, titles, descriptions, and feature chips.
   - Smooth animated pill indicators with responsive, overflow-free scrolling.
-- **Decoupled Form Validation (Login Screen)**:
-  - Per-field validation triggering on user interaction independently.
-  - Typing an invalid email validates only the email field; the password field remains untouched in its pristine default state.
+
+### Curated Catalog & In-Card Circular Stepper
+| Curated Fashion Catalog | Live In-Card Quantity Stepper |
+|:---:|:---:|
+| <img src="assets/list_page.png" width="280" alt="Curated Catalog" /> | <img src="assets/quantity_validatin.png" width="280" alt="In-Card Circular Stepper" /> |
+
 - **Curated Fashion Catalog**:
   - Filter chips (*All, T-shirts, Shirts, Bottoms, Outerwear*) with live count badges.
   - Real-time search with debounced filtering and empty search state fallback.
@@ -71,10 +79,25 @@ The app features local mock authentication for evaluation without third-party ne
 - **In-Card Circular Stepper**:
   - Adding an item replaces the "Add to Cart" button with separated circular controls (`-` outlined circle, bold centered count, `+` filled circle).
   - Instant two-way synchronization with the shared `CartCubit`.
+
+### Shopping Bag & Checkout Readiness
+| Itemized Bag & Free Shipping | Dismissible Item Removal | Empty Bag State | Checkout Preview Modal |
+|:---:|:---:|:---:|:---:|
+| <img src="assets/cart_list_page.png" width="220" alt="Shopping Bag" /> | <img src="assets/cart_product_remove1.png" width="220" alt="Dismissible Item Removal" /> | <img src="assets/empty_cart.png" width="220" alt="Empty Bag State" /> | <img src="assets/checkout_button.png" width="220" alt="Checkout Preview Modal" /> |
+
 - **Shopping Bag & Checkout**:
   - Real-time subtotal, shipping status (`FREE`), and grand total calculations.
   - Monetary calculations tracked in integer minor units (paise) to prevent floating-point representation drift.
-  - Individual item removal and one-tap "Clear Bag" dialog.
+  - Individual item removal, swipe-to-dismiss, and one-tap "Clear Bag" dialog.
+
+### Decoupled Form Validation (Login Screen)
+| Pristine Login Form | Decoupled Email Validation | Password Validation |
+|:---:|:---:|:---:|
+| <img src="assets/login.png" width="260" alt="Pristine Login Form" /> | <img src="assets/email_valid.png" width="260" alt="Decoupled Email Validation" /> | <img src="assets/password_valid.png" width="260" alt="Password Validation" /> |
+
+- **Decoupled Form Validation (Login Screen)**:
+  - Per-field validation triggering on user interaction independently.
+  - Typing an invalid email validates only the email field; the password field remains untouched in its pristine default state.
 
 ---
 

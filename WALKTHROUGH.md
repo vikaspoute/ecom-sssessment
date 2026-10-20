@@ -47,7 +47,12 @@ graph TD
 
 The onboarding flow introduces customers to the brand ethos without friction or gating.
 
-- **Immediate App Launch**: The app starts directly on `OnboardingScreen` via `initialLocation: AppRoutes.onboarding`.
+| Slide 1: Editorial Hero | Slide 2: Curated Wardrobe | Slide 3: Express Dispatch |
+|:---:|:---:|:---:|
+| <img src="assets/onbording1.png" width="260" alt="Onboarding Screen 1" /> | <img src="assets/onbording2.png" width="260" alt="Onboarding Screen 2" /> | <img src="assets/onbording3.png" width="260" alt="Onboarding Screen 3" /> |
+| <sub>Full-bleed hero photography & top glassmorphic Skip chip</sub> | <sub>Product details section with fabric specification chips</sub> | <sub>Express courier dispatch & primary "Start Shopping" action</sub> |
+
+- **Immediate App Launch**: The app starts directly on [OnboardingScreen](file:///Users/vicky/Desktop/ecom/lib/features/onboarding/screens/onboarding_screen.dart) via `initialLocation: AppRoutes.onboarding`.
 - **Hero Photography Ratio**: The top **~48% of the viewport** is dedicated to full-bleed editorial imagery (`AppNetworkImage`) with `borderRadius: BorderRadius.zero` and no card border.
 - **Floating Skip Chip**: A semi-translucent glassmorphic chip is overlaid at the top right, preserving full image visibility while providing an instant exit route to login.
 - **Product Details Section**: The lower 52% displays structured editorial tags, bold titles, descriptions, and specification chips (e.g., *100% Organic Cotton*, *In-Card Stepper*, *Express Courier*).
@@ -58,6 +63,11 @@ The onboarding flow introduces customers to the brand ethos without friction or 
 ### B. Curated Collection & Product Catalog
 
 The catalog showcases the fashion collection with responsive layout tokens and real-time cart state.
+
+| Curated Fashion Catalog | Live In-Card Quantity Stepper |
+|:---:|:---:|
+| <img src="assets/list_page.png" width="280" alt="Curated Fashion Catalog" /> | <img src="assets/quantity_validatin.png" width="280" alt="Live In-Card Quantity Stepper" /> |
+| <sub>Season collection grid with search, filter chips & live cart badge</sub> | <sub>Tactile circular in-card stepper synced with shared CartCubit</sub> |
 
 - **Editorial Header**: Displays the season collection title (`SPRING / SUMMER 2026 • Curated Collection`) with total items count.
 - **Live Search**: Instant product search with debouncing, filtering name, description, and tags with empty search state fallback.
@@ -73,8 +83,8 @@ During initial development on smaller density devices, a RenderFlex bottom overf
 > **Root Cause**: The grid child aspect ratio was fixed at `0.68`, which constricted available vertical height when title or description wrapped to 2+ lines on high text-scaling displays.
 
 #### The Fix:
-1. Adjusted `childAspectRatio` in `product_listing_screen.dart` from `0.68` to `0.58` to allocate sufficient vertical breathing room.
-2. Added `maxLines: 1` and `TextOverflow.ellipsis` to descriptions in `product_card.dart`.
+1. Adjusted `childAspectRatio` in [product_listing_screen.dart](file:///Users/vicky/Desktop/ecom/lib/features/products/screens/product_listing_screen.dart) from `0.68` to `0.58` to allocate sufficient vertical breathing room.
+2. Added `maxLines: 1` and `TextOverflow.ellipsis` to descriptions in [product_card.dart](file:///Users/vicky/Desktop/ecom/lib/features/products/widgets/product_card.dart).
 3. Wrapped card metadata in `Expanded` with structured gap tokens, eliminating all bottom overflow stripes across all test devices.
 
 ---
@@ -96,6 +106,16 @@ The product card interaction transitioned through two major UX evolutions:
 
 The cart screen provides an editorial summary of selected products with real-time price calculations in Indian Rupees (`₹`).
 
+| Shopping Bag Selection | Item Removal / Swipe Dismiss | Empty Bag State | Checkout Preview Modal |
+|:---:|:---:|:---:|:---:|
+| <img src="assets/cart_list_page.png" width="220" alt="Shopping Bag Selection" /> | <img src="assets/cart_product_remove1.png" width="220" alt="Item Swipe Dismissal" /> | <img src="assets/empty_cart.png" width="220" alt="Empty Bag State" /> | <img src="assets/checkout_button.png" width="220" alt="Checkout Preview Modal" /> |
+| <sub>Itemized list with live INR calculation & free shipping banner</sub> | <sub>Swipe-to-dismiss item removal with instant count recalculation</sub> | <sub>Empty state illustration and catalog recovery action</sub> | <sub>Modal bottom sheet previewing order readiness</sub> |
+
+| Clear Bag Confirmation Dialog |
+|:---:|
+| <img src="assets/cart_product_remove.png" width="280" alt="Clear Bag Confirmation Dialog" /> |
+| <sub>One-tap shopping bag clear action with safe confirmation modal</sub> |
+
 - **Complimentary Shipping Banner**: Persistent top banner reinforcing brand value.
 - **Cart Item Cards**:
   - High-resolution product thumbnail with rounded corners.
@@ -109,7 +129,12 @@ The cart screen provides an editorial summary of selected products with real-tim
 
 ### F. Decoupled Form Validation (Login Screen)
 
-A critical UX refinement was made to form validation in `login_screen.dart`:
+A critical UX refinement was made to form validation in [login_screen.dart](file:///Users/vicky/Desktop/ecom/lib/features/auth/screens/login_screen.dart):
+
+| Pristine Login Form | Decoupled Email Validation | Password Validation |
+|:---:|:---:|:---:|
+| <img src="assets/login.png" width="260" alt="Pristine Login Form" /> | <img src="assets/email_valid.png" width="260" alt="Decoupled Email Validation" /> | <img src="assets/password_valid.png" width="260" alt="Password Validation" /> |
+| <sub>Clean form with demo credentials and onboarding explore entry</sub> | <sub>Email error triggers on interaction; password remains pristine</sub> | <sub>Independent password validation rules without cross-field pollution</sub> |
 
 > **Issue**: When `autovalidateMode: AutovalidateMode.onUserInteraction` was set on the parent `Form`, interacting with the Email field caused the untouched Password field to validate prematurely and display a red error.
 
