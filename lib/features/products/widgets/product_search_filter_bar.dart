@@ -57,17 +57,11 @@ class ProductSearchFilterBar extends StatelessWidget {
             key: const ValueKey('search_field'),
             controller: searchController,
             hintText: 'Search products by name...',
-            prefixIcon: const Icon(
-              Icons.search,
-              size: AppSizes.iconMd,
-            ),
+            prefixIcon: const Icon(Icons.search, size: AppSizes.iconMd),
             suffixIcon: searchQuery.isNotEmpty
                 ? IconButton(
                     key: const ValueKey('clear_search_button'),
-                    icon: const Icon(
-                      Icons.clear,
-                      size: AppSizes.iconSm,
-                    ),
+                    icon: const Icon(Icons.clear, size: AppSizes.iconSm),
                     onPressed: onClearSearch,
                   )
                 : null,

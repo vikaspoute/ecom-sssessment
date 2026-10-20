@@ -116,8 +116,8 @@ class CartScreen extends StatelessWidget {
           body: (isLoading || state.isLoading)
               ? const CartScreenSkeleton()
               : state.isEmpty
-                  ? _buildEmptyState(context)
-                  : _buildCartContent(context, state),
+              ? _buildEmptyState(context)
+              : _buildCartContent(context, state),
         );
       },
     );
@@ -127,8 +127,7 @@ class CartScreen extends StatelessWidget {
     return EmptyState(
       icon: Icons.shopping_bag_outlined,
       title: 'Your shopping bag is empty',
-      description:
-          'Discover timeless essentials crafted with premium natural fabrics and add pieces to your bag.',
+      description: 'Discover timeless essentials crafted with premium natural fabrics and add pieces to your bag.',
       actionLabel: 'Explore Curated Catalog',
       onAction: () {
         if (Navigator.of(context).canPop()) {

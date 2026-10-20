@@ -110,33 +110,38 @@ ecom/
 │   ├── features/                          # Self-contained domain feature slices
 │   │   ├── onboarding/                    # Brand introduction walkthrough
 │   │   │   ├── models/                    # OnboardingItem data model
-│   │   │   ├── screens/                   # OnboardingScreen with top Skip chip
-│   │   │   └── widgets/                   # OnboardingIndicator, OnboardingPageContent
+│   │   │   ├── screens/                   # OnboardingScreen
+│   │   │   └── widgets/                   # OnboardingIndicator, OnboardingPageContent, OnboardingSkipButton, OnboardingBottomBar
 │   │   ├── auth/                          # Authentication feature
-│   │   │   ├── cubit/                     # AuthCubit & AuthState (unauthenticated, loading, error)
+│   │   │   ├── cubit/                     # AuthCubit & AuthState
 │   │   │   ├── data/                      # AuthRepository with mock demo credentials
 │   │   │   ├── screens/                   # LoginScreen with decoupled field validation
-│   │   │   └── widgets/                   # PasswordField with visibility toggle
+│   │   │   └── widgets/                   # PasswordField, LoginHeader, LoginDemoFooter
 │   │   ├── products/                      # Catalog browsing & selection
 │   │   │   ├── data/                      # LocalProductRepository with mock inventory
 │   │   │   ├── models/                    # Product model & category enumerations
-│   │   │   ├── screens/                   # ProductListingScreen with search & filter chips
-│   │   │   └── widgets/                   # ProductCard with dynamic circular stepper
+│   │   │   ├── screens/                   # ProductListingScreen
+│   │   │   └── widgets/                   # ProductCard, ProductQuantityStepper, ProductSearchFilterBar, ProductCatalogHeader, ProductGridSkeleton
 │   │   └── cart/                          # Shopping bag & checkout
 │   │       ├── cubit/                     # CartCubit & immutable CartState
 │   │       ├── models/                    # CartItem model with subtotal calculations
-│   │       ├── screens/                   # CartScreen with order summary & checkout bar
-│   │       └── widgets/                   # CartItemCard with quantity adjustment
+│   │       ├── screens/                   # CartScreen
+│   │       └── widgets/                   # CartItemCard, CartQuantityStepper, CartShippingBanner, CartSelectionHeader, CartOrderSummaryBar, CheckoutConfirmationSheet
 │   │
 │   └── shared/                            # Reusable design system UI components
 │       └── widgets/
 │           ├── app_button.dart            # Primary, secondary, outlined & text button
+│           ├── app_button_content.dart    # Internal button content with loading state
 │           ├── app_error_view.dart        # Generic retry error state widget
 │           ├── app_loader.dart            # Circular progress indicators & overlay loader
 │           ├── app_network_image.dart     # CachedNetworkImage with shimmer placeholder
 │           ├── app_shimmer.dart           # Custom skeleton shimmer animation
+│           ├── app_shimmer_box.dart       # Standalone and nested skeleton placeholder element
 │           ├── app_text_field.dart        # Accessible text field with autovalidateMode
-│           └── empty_state.dart           # Empty catalog / bag illustration & action
+│           ├── empty_state.dart           # Empty catalog / bag illustration & action
+│           ├── image_fallback.dart        # Graceful placeholder for broken/empty images
+│           ├── image_placeholder.dart     # Shimmer skeleton placeholder for loading images
+│           └── inherited_shimmer.dart     # InheritedWidget coordinating shimmer sweep across elements
 │
 ├── test/                                  # Comprehensive automated test suite
 │   ├── widget_test.dart                   # Default launch & onboarding skip flow test

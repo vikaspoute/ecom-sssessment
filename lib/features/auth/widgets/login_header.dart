@@ -26,10 +26,7 @@ class LoginHeader extends StatelessWidget {
           ),
         ),
         AppSpacing.md.verticalGap,
-        Text(
-          'Welcome back',
-          style: AppTypography.headlineLarge,
-        ),
+        Text('Welcome back', style: AppTypography.headlineLarge),
         AppSpacing.sm.verticalGap,
         Text(
           'Sign in to continue shopping the collection.',

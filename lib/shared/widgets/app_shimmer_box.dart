@@ -1,6 +1,5 @@
 import 'package:ecom/core/theme/app_radii.dart';
 import 'package:ecom/shared/widgets/app_shimmer.dart';
-import 'package:ecom/shared/widgets/inherited_shimmer.dart';
 import 'package:flutter/material.dart';
 
 /// Standalone skeleton element box.

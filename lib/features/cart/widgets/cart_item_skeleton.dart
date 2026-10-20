@@ -3,7 +3,6 @@ import 'package:ecom/core/extensions/number_extensions.dart';
 import 'package:ecom/core/theme/app_radii.dart';
 import 'package:ecom/core/theme/app_sizes.dart';
 import 'package:ecom/core/theme/app_spacing.dart';
-import 'package:ecom/features/cart/widgets/cart_screen_skeleton.dart';
 import 'package:ecom/shared/widgets/app_shimmer.dart';
 import 'package:flutter/material.dart';
 
@@ -103,4 +102,3 @@ class CartItemSkeleton extends StatelessWidget {
     );
   }
 }
-

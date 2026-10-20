@@ -6,10 +6,7 @@ import 'package:flutter/material.dart';
 /// Section header displaying the bag title and total item count badge.
 class CartSelectionHeader extends StatelessWidget {
   /// Creates a [CartSelectionHeader].
-  const CartSelectionHeader({
-    super.key,
-    required this.totalItemCount,
-  });
+  const CartSelectionHeader({super.key, required this.totalItemCount});
 
   /// The total count of items in the shopping bag.
   final int totalItemCount;

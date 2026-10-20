@@ -48,9 +48,7 @@ class OnboardingBottomBar extends StatelessWidget {
           AppSpacing.md,
         ),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: AppSizes.maxContentWidth,
-          ),
+          constraints: const BoxConstraints(maxWidth: AppSizes.maxContentWidth),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

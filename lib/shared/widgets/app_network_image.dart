@@ -72,4 +72,3 @@ class AppNetworkImage extends StatelessWidget {
     );
   }
 }
-

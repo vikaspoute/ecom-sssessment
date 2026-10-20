@@ -158,8 +158,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             expand: true,
                             size: AppButtonSize.large,
                             isLoading: isLoading,
-                            onPressed:
-                                _isFormValid && !isLoading ? _submit : null,
+                            onPressed: _isFormValid && !isLoading
+                                ? _submit
+                                : null,
                           ),
                           const LoginDemoFooter(),
                         ],

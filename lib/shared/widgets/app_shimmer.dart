@@ -1,5 +1,4 @@
 import 'package:ecom/core/extensions/context_extensions.dart';
-import 'package:ecom/shared/widgets/app_shimmer_box.dart';
 import 'package:ecom/shared/widgets/inherited_shimmer.dart';
 import 'package:flutter/material.dart';
 

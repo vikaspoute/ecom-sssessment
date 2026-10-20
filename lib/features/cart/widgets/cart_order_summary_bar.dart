@@ -121,10 +121,7 @@ class CartOrderSummaryBar extends StatelessWidget {
             AppButton(
               key: const ValueKey('checkout_button'),
               label: 'Proceed to Checkout (${cartState.totalItemCount})',
-              leading: const Icon(
-                Icons.lock_outline,
-                size: AppSizes.iconSm,
-              ),
+              leading: const Icon(Icons.lock_outline, size: AppSizes.iconSm),
               expand: true,
               onPressed: onCheckout,
             ),

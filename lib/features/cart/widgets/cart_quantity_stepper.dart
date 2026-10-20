@@ -112,10 +112,7 @@ class CartQuantityStepper extends StatelessWidget {
               ),
               padding: EdgeInsets.zero,
             ),
-            icon: const Icon(
-              Icons.add_rounded,
-              size: AppSizes.iconSm,
-            ),
+            icon: const Icon(Icons.add_rounded, size: AppSizes.iconSm),
             onPressed: onIncrement,
           ),
         ],

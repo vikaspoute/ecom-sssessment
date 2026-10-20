@@ -44,10 +44,7 @@ void main() {
       _wrap(const ProductCard(product: testProduct, cartQuantity: 3)),
     );
 
-    expect(
-      find.byKey(const ValueKey('quantity_test_tee')),
-      findsOneWidget,
-    );
+    expect(find.byKey(const ValueKey('quantity_test_tee')), findsOneWidget);
     expect(find.text('3'), findsOneWidget);
   });
 

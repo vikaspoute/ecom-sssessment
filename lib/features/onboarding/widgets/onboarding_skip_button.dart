@@ -8,10 +8,7 @@ import 'package:flutter/material.dart';
 /// Floating semi-translucent glassmorphic skip chip positioned over hero imagery.
 class OnboardingSkipButton extends StatelessWidget {
   /// Creates an [OnboardingSkipButton].
-  const OnboardingSkipButton({
-    super.key,
-    required this.onSkip,
-  });
+  const OnboardingSkipButton({super.key, required this.onSkip});
 
   /// Callback when user taps the skip chip.
   final VoidCallback onSkip;

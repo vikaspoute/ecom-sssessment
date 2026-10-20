@@ -13,10 +13,7 @@ import 'package:go_router/go_router.dart';
 /// Modal bottom sheet content summarizing readiness for the order checkout pipeline.
 class CheckoutConfirmationSheet extends StatelessWidget {
   /// Creates a [CheckoutConfirmationSheet].
-  const CheckoutConfirmationSheet({
-    super.key,
-    required this.cartState,
-  });
+  const CheckoutConfirmationSheet({super.key, required this.cartState});
 
   /// The active cart state holding subtotal and count details.
   final CartState cartState;

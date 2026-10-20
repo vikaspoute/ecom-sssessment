@@ -166,12 +166,38 @@ fvm flutter test
 
 ---
 
-## 4. Key Code Locations
+## 4. Key Code Locations & Modular Widget Architecture
 
-- `lib/features/onboarding/screens/onboarding_screen.dart` — Full-bleed launch screen with top floating Skip chip.
-- `lib/features/onboarding/widgets/onboarding_page_content.dart` — Upper 48% hero image and product details data section.
-- `lib/features/products/screens/product_listing_screen.dart` — Curated collection grid, search, and category chips.
-- `lib/features/products/widgets/product_card.dart` — In-card stepper with separated circular controls.
-- `lib/features/cart/screens/cart_screen.dart` — Shopping bag review and checkout bar.
-- `lib/features/auth/screens/login_screen.dart` — Decoupled independent validation login screen.
-- `lib/core/router/app_router.dart` — GoRouter routes with default onboarding initial location.
+Each screen is decomposed into focused, single-responsibility public supporting widgets (zero private widget classes):
+
+- **Onboarding**:
+  - `lib/features/onboarding/screens/onboarding_screen.dart` — Full-bleed launch screen.
+  - `lib/features/onboarding/widgets/onboarding_skip_button.dart` — Glassmorphic floating Skip chip.
+  - `lib/features/onboarding/widgets/onboarding_bottom_bar.dart` — Animated pill indicators and navigation controls.
+  - `lib/features/onboarding/widgets/onboarding_page_content.dart` — Upper 48% hero image and editorial product details.
+- **Product Catalog**:
+  - `lib/features/products/screens/product_listing_screen.dart` — Responsive catalog screen.
+  - `lib/features/products/widgets/product_card.dart` — Reusable product card with image and pricing.
+  - `lib/features/products/widgets/product_quantity_stepper.dart` — Circular dynamic in-card stepper.
+  - `lib/features/products/widgets/product_search_filter_bar.dart` — Pinned search field and horizontal category pills.
+  - `lib/features/products/widgets/product_catalog_header.dart` — Editorial collection season title and count badge.
+  - `lib/features/products/widgets/product_grid_skeleton.dart` — Zero-layout-shift responsive skeleton grid.
+- **Shopping Bag & Checkout**:
+  - `lib/features/cart/screens/cart_screen.dart` — Shopping bag screen.
+  - `lib/features/cart/widgets/cart_item_card.dart` — Cart product row with dismissal and details.
+  - `lib/features/cart/widgets/cart_quantity_stepper.dart` — Tactile quantity increment/decrement/remove stepper.
+  - `lib/features/cart/widgets/cart_shipping_banner.dart` — Complimentary express shipping announcement.
+  - `lib/features/cart/widgets/cart_selection_header.dart` — Item count badge and section header.
+  - `lib/features/cart/widgets/cart_order_summary_bar.dart` — Pinned bottom checkout and subtotal bar.
+  - `lib/features/cart/widgets/checkout_confirmation_sheet.dart` — Bottom sheet modal preview for checkout flow.
+  - `lib/features/cart/widgets/cart_screen_skeleton.dart` — Skeleton shimmer layout for cart items and summary.
+- **Authentication**:
+  - `lib/features/auth/screens/login_screen.dart` — Decoupled independent validation login screen.
+  - `lib/features/auth/widgets/password_field.dart` — Password input with visibility toggle.
+  - `lib/features/auth/widgets/login_header.dart` — Clean brand typography banner.
+  - `lib/features/auth/widgets/login_demo_footer.dart` — Evaluation credentials banner and onboarding link.
+- **Core & Design System**:
+  - `lib/core/router/app_router.dart` — GoRouter routes with default onboarding initial location.
+  - `lib/shared/widgets/app_button_content.dart` — Accessible button internals and progress indicator.
+  - `lib/shared/widgets/app_shimmer_box.dart` — Composable skeleton box participating in unified sweep.
+  - `lib/shared/widgets/image_placeholder.dart` & `image_fallback.dart` — Network image loading states.
